@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إدارة الطلبات - نظام قطع غيار السيارات</title>
+    <title>إدارة العملاء - نظام قطع غيار السيارات</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,15 +22,12 @@
         body {
             font-family: 'Cairo', sans-serif;
         }
-        .order-card {
+        .customer-card {
             transition: all 0.3s ease;
         }
-        .order-card:hover {
+        .customer-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-        .status-badge {
-            transition: all 0.3s ease;
         }
         .sidebar-transition {
             transition: all 0.3s ease-in-out;
@@ -67,7 +64,7 @@
                     <span>إدارة المنتجات</span>
                 </a>
                 <a href="/orders.html"
-                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors active">
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
                     <i class="fas fa-warehouse ml-3"></i>
                     <span>المخزون</span>
                 </a>
@@ -77,7 +74,7 @@
                     <span>الطلبات</span>
                 </a>
                 <a href="/customers.html"
-                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors active">
                     <i class="fas fa-users ml-3"></i>
                     <span>العملاء</span>
                 </a>
@@ -108,7 +105,7 @@
                     <button id="openSidebar" class="lg:hidden text-gray-500 hover:text-gray-700">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <h2 class="text-2xl font-bold text-gray-800">إدارة الطلبات</h2>
+                    <h2 class="text-2xl font-bold text-gray-800">إدارة العملاء</h2>
                 </div>
                 
                 <div class="flex items-center space-x-4 space-x-reverse">
@@ -125,9 +122,9 @@
                             <p class="text-xs text-gray-500">مدير النظام</p>
                         </div>
                     </a>
-                    <button id="exportBtn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
-                        <i class="fas fa-download ml-2"></i>
-                        تصدير البيانات
+                    <button id="addCustomerBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-plus ml-2"></i>
+                        إضافة عميل جديد
                     </button>
                 </div>
             </div>
@@ -139,50 +136,50 @@
         <main class="p-6">
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="bg-white rounded-xl shadow-sm p-6 customer-card">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-sm font-medium text-gray-600">إجمالي الطلبات</p>
+                            <p class="text-sm font-medium text-gray-600">إجمالي العملاء</p>
                             <p class="text-2xl font-bold text-gray-900">1,234</p>
                         </div>
                         <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-shopping-cart text-blue-600 text-xl"></i>
+                            <i class="fas fa-users text-blue-600 text-xl"></i>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="bg-white rounded-xl shadow-sm p-6 customer-card">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-sm font-medium text-gray-600">طلبات معلقة</p>
-                            <p class="text-2xl font-bold text-yellow-600">45</p>
-                        </div>
-                        <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-clock text-yellow-600 text-xl"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-gray-600">قيد الشحن</p>
-                            <p class="text-2xl font-bold text-blue-600">89</p>
-                        </div>
-                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-truck text-blue-600 text-xl"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-gray-600">مكتملة</p>
-                            <p class="text-2xl font-bold text-green-600">1,100</p>
+                            <p class="text-sm font-medium text-gray-600">عملاء نشطين</p>
+                            <p class="text-2xl font-bold text-green-600">892</p>
                         </div>
                         <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-check-circle text-green-600 text-xl"></i>
+                            <i class="fas fa-user-check text-green-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-6 customer-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">عملاء جدد</p>
+                            <p class="text-2xl font-bold text-purple-600">45</p>
+                        </div>
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-user-plus text-purple-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-6 customer-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">متوسط الطلبات</p>
+                            <p class="text-2xl font-bold text-orange-600">3.2</p>
+                        </div>
+                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-shopping-cart text-orange-600 text-xl"></i>
                         </div>
                     </div>
                 </div>
@@ -190,26 +187,19 @@
 
             <!-- Filters -->
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">رقم الطلب</label>
-                        <input type="text" id="orderNumberFilter" placeholder="بحث برقم الطلب..." 
+                        <label class="block text-sm font-medium text-gray-700 mb-2">البحث</label>
+                        <input type="text" id="searchInput" placeholder="اسم العميل أو البريد الإلكتروني..." 
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">اسم العميل</label>
-                        <input type="text" id="customerFilter" placeholder="بحث بالعميل..." 
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">حالة الطلب</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">الحالة</label>
                         <select id="statusFilter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             <option value="">الكل</option>
-                            <option value="pending">معلق</option>
-                            <option value="processing">قيد المعالجة</option>
-                            <option value="shipped">قيد الشحن</option>
-                            <option value="delivered">تم التوصيل</option>
-                            <option value="cancelled">ملغي</option>
+                            <option value="active">نشط</option>
+                            <option value="inactive">غير نشط</option>
+                            <option value="vip">VIP</option>
                         </select>
                     </div>
                     <div>
@@ -225,23 +215,23 @@
                 </div>
             </div>
 
-            <!-- Orders Table -->
+            <!-- Customers Table -->
             <div class="bg-white rounded-xl shadow-sm overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">رقم الطلب</th>
                                 <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">العميل</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">المنتجات</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">المبلغ</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">التاريخ</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">البريد الإلكتروني</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">رقم الهاتف</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">عدد الطلبات</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">إجمالي المشتريات</th>
                                 <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الحالة</th>
                                 <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الإجراءات</th>
                             </tr>
                         </thead>
-                        <tbody id="ordersTableBody" class="bg-white divide-y divide-gray-200">
-                            <!-- Orders will be generated here -->
+                        <tbody id="customersTableBody" class="bg-white divide-y divide-gray-200">
+                            <!-- Customers will be generated here -->
                         </tbody>
                     </table>
                 </div>
@@ -250,7 +240,7 @@
             <!-- Pagination -->
             <div class="flex items-center justify-between mt-6">
                 <div class="text-sm text-gray-700">
-                    عرض <span id="startRange">1</span> إلى <span id="endRange">10</span> من <span id="totalOrders">50</span> طلب
+                    عرض <span id="startRange">1</span> إلى <span id="endRange">10</span> من <span id="totalCustomers">50</span> عميل
                 </div>
                 <div class="flex space-x-2 space-x-reverse">
                     <button id="prevPage" class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 disabled:opacity-50">
@@ -262,27 +252,64 @@
                 </div>
             </div>
         </main>
+    </div>
 
-        <!-- Order Details Modal -->
-        <div id="orderDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
-            <div class="flex items-center justify-center min-h-screen p-4">
-                <div class="bg-white rounded-xl shadow-xl w-full max-w-4xl max-h-screen overflow-y-auto">
-                    <div class="flex items-center justify-between p-6 border-b">
-                        <h3 class="text-xl font-semibold text-gray-800">تفاصيل الطلب</h3>
-                        <button id="closeOrderModal" class="text-gray-500 hover:text-gray-700">
-                            <i class="fas fa-times text-xl"></i>
+    <!-- Add Customer Modal -->
+    <div id="addCustomerModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-screen overflow-y-auto">
+                <div class="flex items-center justify-between p-6 border-b">
+                    <h3 class="text-xl font-semibold text-gray-800">إضافة عميل جديد</h3>
+                    <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <form id="addCustomerForm" class="p-6 space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">الاسم الأول</label>
+                            <input type="text" name="firstName" required
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">اسم العائلة</label>
+                            <input type="text" name="lastName" required
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني</label>
+                            <input type="email" name="email" required
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">رقم الهاتف</label>
+                            <input type="tel" name="phone" required
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">العنوان</label>
+                        <textarea name="address" rows="3"
+                                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+                    </div>
+
+                    <div class="flex items-center justify-end space-x-4 space-x-reverse pt-6 border-t">
+                        <button type="button" id="cancelBtn"
+                                class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                            إلغاء
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            إضافة العميل
                         </button>
                     </div>
-                    
-                    <div id="orderDetailsContent" class="p-6">
-                        <!-- Order details will be loaded here -->
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <script src="orders.js"></script>
+    <script src="customers.js"></script>
     <script src="script.js"></script>
 
 </body>

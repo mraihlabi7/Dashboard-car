@@ -9,7 +9,7 @@ let products = [
         price: 45.00,
         stock: 150,
         description: "فلتر زيت محرك عالي الجودة لتويوتا كامري",
-        image: "https://via.placeholder.com/300x200?text=فلتر+زيت",
+        image: "https://ui-avatars.com/api/?name=فلتر+.&size=96&background=7d7585&color=fff",
         status: "in-stock"
     },
     {
@@ -21,7 +21,7 @@ let products = [
         price: 120.00,
         stock: 8,
         description: "فرامل أمامية لهوندا سيفيك",
-        image: "https://via.placeholder.com/300x200?text=فرامل+أمامية",
+        image: "https://ui-avatars.com/api/?name=فرامل+.&size=96&background=7d7585&color=fff",
         status: "low-stock"
     },
     {
@@ -33,7 +33,7 @@ let products = [
         price: 280.00,
         stock: 0,
         description: "بطارية سيارة 60 أمبير لنيسان سنترا",
-        image: "https://via.placeholder.com/300x200?text=بطارية+سيارة",
+        image: "https://ui-avatars.com/api/?name=بطارية+.&size=96&background=7d7585&color=fff",
         status: "out-of-stock"
     },
     {
@@ -45,7 +45,7 @@ let products = [
         price: 85.00,
         stock: 25,
         description: "شمعات إشعال لبي إم دبليو",
-        image: "https://via.placeholder.com/300x200?text=شمعات+إشعال",
+        image: "https://ui-avatars.com/api/?name=شمعات+.&size=96&background=7d7585&color=fff",
         status: "in-stock"
     },
     {
@@ -57,7 +57,7 @@ let products = [
         price: 35.00,
         stock: 5,
         description: "فلتر هواء محرك لتويوتا",
-        image: "https://via.placeholder.com/300x200?text=فلتر+هواء",
+        image: "https://ui-avatars.com/api/?name=فلتر+.&size=96&background=7d7585&color=fff",
         status: "low-stock"
     },
     {
@@ -69,7 +69,7 @@ let products = [
         price: 65.00,
         stock: 12,
         description: "زيت محرك 5W-30 لهوندا",
-        image: "https://via.placeholder.com/300x200?text=زيت+محرك",
+        image: "https://ui-avatars.com/api/?name=زيت+.&size=96&background=7d7585&color=fff",
         status: "low-stock"
     }
 ];

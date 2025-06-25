@@ -34,271 +34,354 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
+        .sidebar-transition {
+            transition: all 0.3s ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-cairo">
-    <!-- Header -->
-    <header class="bg-white shadow-sm border-b">
-        <div class="flex items-center justify-between px-6 py-4">
-            <div class="flex items-center space-x-4 space-x-reverse">
-                <a href="index.html" class="text-blue-600 hover:text-blue-700">
-                    <i class="fas fa-arrow-right text-xl"></i>
-                </a>
-                <h1 class="text-2xl font-bold text-gray-800">التقارير والتحليلات</h1>
+    <!-- Sidebar -->
+    <div id="sidebar"
+        class="fixed inset-y-0 right-0 z-50 w-64 bg-white shadow-lg sidebar-transition transform translate-x-full lg:translate-x-0">
+        <div class="flex items-center justify-between p-[18px] border-b">
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div
+                    class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-cog text-white text-lg"></i>
+                </div>
+                <h1 class="text-xl font-bold text-gray-800">أوتو بارتس</h1>
             </div>
-            
-            <div class="flex items-center space-x-4 space-x-reverse">
-                <button id="exportReportBtn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
-                    <i class="fas fa-download ml-2"></i>
-                    تصدير التقرير
-                </button>
-                <button id="printReportBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                    <i class="fas fa-print ml-2"></i>
-                    طباعة
-                </button>
-            </div>
+            <button id="closeSidebar" class="lg:hidden text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-xl"></i>
+            </button>
         </div>
-    </header>
 
-    <!-- Main Content -->
-    <main class="p-6">
-        <!-- Date Range Filter -->
-        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-lg font-semibold text-gray-800">نطاق التقرير</h2>
-                <div class="flex space-x-2 space-x-reverse">
-                    <button id="lastWeek" class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">آخر أسبوع</button>
-                    <button id="lastMonth" class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">آخر شهر</button>
-                    <button id="lastQuarter" class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">آخر 3 أشهر</button>
-                    <button id="lastYear" class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">آخر سنة</button>
-                </div>
+        <nav class="mt-6">
+            <div class="px-4 space-y-2">
+                <a href="/index.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-tachometer-alt ml-3"></i>
+                    <span>لوحة التحكم</span>
+                </a>
+                <a href="/products.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-boxes ml-3"></i>
+                    <span>إدارة المنتجات</span>
+                </a>
+                <a href="/orders.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-warehouse ml-3"></i>
+                    <span>المخزون</span>
+                </a>
+                <a href="/orders.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-shopping-cart ml-3"></i>
+                    <span>الطلبات</span>
+                </a>
+                <a href="/customers.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-users ml-3"></i>
+                    <span>العملاء</span>
+                </a>
+                <a href="/suppliers.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-truck ml-3"></i>
+                    <span>الموردون</span>
+                </a>
+                <a href="/reports.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors active">
+                    <i class="fas fa-chart-bar ml-3"></i>
+                    <span>التقارير</span>
+                </a>
+                <a href="/settings.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-cog ml-3"></i>
+                    <span>الإعدادات</span>
+                </a>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">من تاريخ</label>
-                    <input type="date" id="dateFrom" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </nav>
+    </div>
+
+    <div class="lg:mr-64">
+        <!-- Top Navigation -->
+        <header class="bg-white shadow-sm border-b fixed w-full lg:relative">
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <button id="openSidebar" class="lg:hidden text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <h2 class="text-2xl font-bold text-gray-800">التقارير والتحليلات</h2>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">إلى تاريخ</label>
-                    <input type="date" id="dateTo" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-                <div class="flex items-end">
-                    <button id="generateReport" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                        <i class="fas fa-chart-bar ml-2"></i>
-                        إنشاء التقرير
+                
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="relative">
+                        <button class="relative p-2 text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
+                        </button>
+                    </div>
+                    <a href="/profile.html" class="flex items-center space-x-3 space-x-reverse">
+                        <img src="https://placehold.co/40x40/6890e8/FFFFFF.png" alt="Profile" class="w-10 h-10 rounded-full">
+                        <div class="hidden md:block">
+                            <p class="text-sm font-medium text-gray-700">أحمد محمد</p>
+                            <p class="text-xs text-gray-500">مدير النظام</p>
+                        </div>
+                    </a>
+                    <button id="exportReportBtn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                        <i class="fas fa-download ml-2"></i>
+                        تصدير التقرير
+                    </button>
+                    <button id="printReportBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-print ml-2"></i>
+                        طباعة
                     </button>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <!-- Summary Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white rounded-xl shadow-sm p-6 report-card">
-                <div class="flex items-center justify-between">
+        <div class="h-[77px] lg:hidden"></div>
+
+        <!-- Main Content -->
+        <main class="p-6">
+            <!-- Date Range Filter -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">نطاق التقرير</h2>
+                    <div class="flex space-x-2 space-x-reverse">
+                        <button id="lastWeek" class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">آخر أسبوع</button>
+                        <button id="lastMonth" class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">آخر شهر</button>
+                        <button id="lastQuarter" class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">آخر 3 أشهر</button>
+                        <button id="lastYear" class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">آخر سنة</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                        <p class="text-sm font-medium text-gray-600">إجمالي المبيعات</p>
-                        <p class="text-2xl font-bold text-gray-900">125,430 ر.س</p>
-                        <p class="text-sm text-green-600 flex items-center mt-1">
-                            <i class="fas fa-arrow-up ml-1"></i>
-                            +12.5% مقارنة بالفترة السابقة
-                        </p>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">من تاريخ</label>
+                        <input type="date" id="dateFrom" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     </div>
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-dollar-sign text-blue-600 text-xl"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-sm p-6 report-card">
-                <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-600">عدد الطلبات</p>
-                        <p class="text-2xl font-bold text-gray-900">1,234</p>
-                        <p class="text-sm text-green-600 flex items-center mt-1">
-                            <i class="fas fa-arrow-up ml-1"></i>
-                            +8.2% مقارنة بالفترة السابقة
-                        </p>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">إلى تاريخ</label>
+                        <input type="date" id="dateTo" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     </div>
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-shopping-cart text-green-600 text-xl"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-sm p-6 report-card">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-600">متوسط قيمة الطلب</p>
-                        <p class="text-2xl font-bold text-gray-900">101.6 ر.س</p>
-                        <p class="text-sm text-green-600 flex items-center mt-1">
-                            <i class="fas fa-arrow-up ml-1"></i>
-                            +3.8% مقارنة بالفترة السابقة
-                        </p>
-                    </div>
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-chart-line text-purple-600 text-xl"></i>
+                    <div class="flex items-end">
+                        <button id="generateReport" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chart-bar ml-2"></i>
+                            إنشاء التقرير
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm p-6 report-card">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-600">العملاء الجدد</p>
-                        <p class="text-2xl font-bold text-gray-900">89</p>
-                        <p class="text-sm text-green-600 flex items-center mt-1">
-                            <i class="fas fa-arrow-up ml-1"></i>
-                            +15.3% مقارنة بالفترة السابقة
-                        </p>
-                    </div>
-                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-users text-orange-600 text-xl"></i>
+            <!-- Summary Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-sm p-6 report-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">إجمالي المبيعات</p>
+                            <p class="text-2xl font-bold text-gray-900">125,430 ر.س</p>
+                            <p class="text-sm text-green-600 flex items-center mt-1">
+                                <i class="fas fa-arrow-up ml-1"></i>
+                                +12.5% مقارنة بالفترة السابقة
+                            </p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-dollar-sign text-blue-600 text-xl"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Charts Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <!-- Sales Chart -->
-            <div class="bg-white rounded-xl shadow-sm p-6">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-lg font-semibold text-gray-800">المبيعات الشهرية</h3>
-                    <select id="salesChartType" class="text-sm border border-gray-300 rounded-lg px-3 py-1">
-                        <option value="line">خطي</option>
-                        <option value="bar">أعمدة</option>
-                        <option value="area">منطقة</option>
-                    </select>
-                </div>
-                <div class="chart-container">
-                    <canvas id="salesChart"></canvas>
-                </div>
-            </div>
-
-            <!-- Products Performance -->
-            <div class="bg-white rounded-xl shadow-sm p-6">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-lg font-semibold text-gray-800">أداء المنتجات</h3>
-                    <button id="viewAllProducts" class="text-blue-600 text-sm hover:text-blue-700">عرض الكل</button>
-                </div>
-                <div class="chart-container">
-                    <canvas id="productsChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Detailed Reports -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Top Selling Products -->
-            <div class="bg-white rounded-xl shadow-sm p-6">
-                <h3 class="text-lg font-semibold text-gray-800 mb-6">أفضل المنتجات مبيعاً</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <div class="flex items-center space-x-3 space-x-reverse">
-                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-box text-blue-600"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-800">فلتر زيت محرك</p>
-                                <p class="text-sm text-gray-500">تويوتا كامري</p>
-                            </div>
+                <div class="bg-white rounded-xl shadow-sm p-6 report-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">عدد الطلبات</p>
+                            <p class="text-2xl font-bold text-gray-900">1,234</p>
+                            <p class="text-sm text-green-600 flex items-center mt-1">
+                                <i class="fas fa-arrow-up ml-1"></i>
+                                +8.2% مقارنة بالفترة السابقة
+                            </p>
                         </div>
-                        <div class="text-right">
-                            <p class="font-medium text-gray-800">234 وحدة</p>
-                            <p class="text-sm text-green-600">+15%</p>
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-shopping-cart text-green-600 text-xl"></i>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <div class="flex items-center space-x-3 space-x-reverse">
-                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-box text-green-600"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-800">فرامل أمامية</p>
-                                <p class="text-sm text-gray-500">هوندا سيفيك</p>
-                            </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-6 report-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">متوسط قيمة الطلب</p>
+                            <p class="text-2xl font-bold text-gray-900">101.6 ر.س</p>
+                            <p class="text-sm text-green-600 flex items-center mt-1">
+                                <i class="fas fa-arrow-up ml-1"></i>
+                                +3.8% مقارنة بالفترة السابقة
+                            </p>
                         </div>
-                        <div class="text-right">
-                            <p class="font-medium text-gray-800">189 وحدة</p>
-                            <p class="text-sm text-green-600">+8%</p>
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-chart-line text-purple-600 text-xl"></i>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <div class="flex items-center space-x-3 space-x-reverse">
-                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-box text-purple-600"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-800">بطارية سيارة</p>
-                                <p class="text-sm text-gray-500">نيسان سنترا</p>
-                            </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-6 report-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">العملاء الجدد</p>
+                            <p class="text-2xl font-bold text-gray-900">89</p>
+                            <p class="text-sm text-green-600 flex items-center mt-1">
+                                <i class="fas fa-arrow-up ml-1"></i>
+                                +15.3% مقارنة بالفترة السابقة
+                            </p>
                         </div>
-                        <div class="text-right">
-                            <p class="font-medium text-gray-800">156 وحدة</p>
-                            <p class="text-sm text-red-600">-3%</p>
+                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-users text-orange-600 text-xl"></i>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Customer Analysis -->
-            <div class="bg-white rounded-xl shadow-sm p-6">
-                <h3 class="text-lg font-semibold text-gray-800 mb-6">تحليل العملاء</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <div class="flex items-center space-x-3 space-x-reverse">
-                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-user text-blue-600"></i>
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Sales Chart -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800">المبيعات الشهرية</h3>
+                        <select id="salesChartType" class="text-sm border border-gray-300 rounded-lg px-3 py-1">
+                            <option value="line">خطي</option>
+                            <option value="bar">أعمدة</option>
+                            <option value="area">منطقة</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Products Performance -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800">أداء المنتجات</h3>
+                        <button id="viewAllProducts" class="text-blue-600 text-sm hover:text-blue-700">عرض الكل</button>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="productsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Reports -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Top Selling Products -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-6">أفضل المنتجات مبيعاً</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-box text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-800">فلتر زيت محرك</p>
+                                    <p class="text-sm text-gray-500">تويوتا كامري</p>
+                                </div>
                             </div>
-                            <div>
-                                <p class="font-medium text-gray-800">العملاء النشطين</p>
-                                <p class="text-sm text-gray-500">آخر 30 يوم</p>
+                            <div class="text-right">
+                                <p class="font-medium text-gray-800">234 وحدة</p>
+                                <p class="text-sm text-green-600">+15%</p>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <p class="font-medium text-gray-800">892</p>
-                            <p class="text-sm text-green-600">+12%</p>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-box text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-800">فرامل أمامية</p>
+                                    <p class="text-sm text-gray-500">هوندا سيفيك</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-medium text-gray-800">189 وحدة</p>
+                                <p class="text-sm text-green-600">+8%</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-box text-purple-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-800">بطارية سيارة</p>
+                                    <p class="text-sm text-gray-500">نيسان سنترا</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-medium text-gray-800">156 وحدة</p>
+                                <p class="text-sm text-red-600">-3%</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <div class="flex items-center space-x-3 space-x-reverse">
-                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-user-plus text-green-600"></i>
+                </div>
+
+                <!-- Customer Analysis -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-6">تحليل العملاء</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-user text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-800">العملاء النشطين</p>
+                                    <p class="text-sm text-gray-500">آخر 30 يوم</p>
+                                </div>
                             </div>
-                            <div>
-                                <p class="font-medium text-gray-800">عملاء جدد</p>
-                                <p class="text-sm text-gray-500">آخر 30 يوم</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-medium text-gray-800">156</p>
-                            <p class="text-sm text-green-600">+25%</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <div class="flex items-center space-x-3 space-x-reverse">
-                            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-star text-orange-600"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-800">متوسط التقييم</p>
-                                <p class="text-sm text-gray-500">من 5 نجوم</p>
+                            <div class="text-right">
+                                <p class="font-medium text-gray-800">892</p>
+                                <p class="text-sm text-green-600">+12%</p>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <p class="font-medium text-gray-800">4.6</p>
-                            <p class="text-sm text-green-600">+0.2</p>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-user-plus text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-800">عملاء جدد</p>
+                                    <p class="text-sm text-gray-500">آخر 30 يوم</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-medium text-gray-800">156</p>
+                                <p class="text-sm text-green-600">+25%</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-star text-orange-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-800">متوسط التقييم</p>
+                                    <p class="text-sm text-gray-500">من 5 نجوم</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-medium text-gray-800">4.6</p>
+                                <p class="text-sm text-green-600">+0.2</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <!-- Notification Container -->
     <div id="notificationContainer" class="fixed top-4 left-4 z-50 space-y-2"></div>
 
     <script src="config.js"></script>
     <script src="reports.js"></script>
+    <script src="script.js"></script>
 </body>
 </html> 

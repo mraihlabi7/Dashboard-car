@@ -40,266 +40,333 @@
         .faq-content.active {
             max-height: 500px;
         }
+        .sidebar-transition {
+            transition: all 0.3s ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-cairo">
-    <!-- Header -->
-    <header class="bg-white shadow-sm border-b">
-        <div class="flex items-center justify-between px-6 py-4">
-            <div class="flex items-center space-x-4 space-x-reverse">
-                <a href="index.html" class="text-blue-600 hover:text-blue-700">
-                    <i class="fas fa-arrow-right text-xl"></i>
+    <!-- Sidebar -->
+    <div id="sidebar"
+        class="fixed inset-y-0 right-0 z-50 w-64 bg-white shadow-lg sidebar-transition transform translate-x-full lg:translate-x-0">
+        <div class="flex items-center justify-between p-[18px] border-b">
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div
+                    class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-cog text-white text-lg"></i>
+                </div>
+                <h1 class="text-xl font-bold text-gray-800">أوتو بارتس</h1>
+            </div>
+            <button id="closeSidebar" class="lg:hidden text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+
+        <nav class="mt-6">
+            <div class="px-4 space-y-2">
+                <a href="/index.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-tachometer-alt ml-3"></i>
+                    <span>لوحة التحكم</span>
                 </a>
-                <h1 class="text-2xl font-bold text-gray-800">المساعدة والدعم</h1>
+                <a href="/products.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-boxes ml-3"></i>
+                    <span>إدارة المنتجات</span>
+                </a>
+                <a href="/orders.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-warehouse ml-3"></i>
+                    <span>المخزون</span>
+                </a>
+                <a href="/orders.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-shopping-cart ml-3"></i>
+                    <span>الطلبات</span>
+                </a>
+                <a href="/customers.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-users ml-3"></i>
+                    <span>العملاء</span>
+                </a>
+                <a href="/suppliers.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-truck ml-3"></i>
+                    <span>الموردون</span>
+                </a>
+                <a href="/reports.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-chart-bar ml-3"></i>
+                    <span>التقارير</span>
+                </a>
+                <a href="/settings.html"
+                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-cog ml-3"></i>
+                    <span>الإعدادات</span>
+                </a>
             </div>
-            
-            <div class="flex items-center space-x-4 space-x-reverse">
-                <button id="contactSupportBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                    <i class="fas fa-headset ml-2"></i>
-                    تواصل مع الدعم
-                </button>
-            </div>
-        </div>
-    </header>
+        </nav>
+    </div>
 
-    <!-- Main Content -->
-    <main class="p-6">
-        <div class="max-w-6xl mx-auto">
-            <!-- Search Section -->
-            <div class="bg-white rounded-xl shadow-sm p-8 mb-8 text-center">
-                <div class="max-w-2xl mx-auto">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-4">كيف يمكننا مساعدتك؟</h2>
-                    <p class="text-gray-600 mb-6">ابحث عن إجابات للأسئلة الشائعة أو تصفح الأدلة التعليمية</p>
-                    
+    <div class="lg:mr-64">
+        <!-- Top Navigation -->
+        <header class="bg-white shadow-sm border-b fixed w-full lg:relative">
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <button id="openSidebar" class="lg:hidden text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <h2 class="text-2xl font-bold text-gray-800">المساعدة والدعم</h2>
+                </div>
+                
+                <div class="flex items-center space-x-4 space-x-reverse">
                     <div class="relative">
-                        <input type="text" id="helpSearch" placeholder="ابحث في المساعدة..." 
-                               class="w-full px-6 py-4 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg">
-                        <button class="absolute inset-y-0 left-0 pl-4 text-gray-400 hover:text-gray-600">
-                            <i class="fas fa-search text-xl"></i>
+                        <button class="relative p-2 text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
                         </button>
                     </div>
-                </div>
-            </div>
-
-            <!-- Quick Help Categories -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white rounded-xl shadow-sm p-6 help-card text-center">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-boxes text-blue-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">إدارة المنتجات</h3>
-                    <p class="text-gray-600 text-sm mb-4">تعلم كيفية إضافة وتعديل المنتجات</p>
-                    <button onclick="showCategory('products')" class="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                        عرض الدليل
-                    </button>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm p-6 help-card text-center">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-shopping-cart text-green-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">إدارة الطلبات</h3>
-                    <p class="text-gray-600 text-sm mb-4">كيفية معالجة وتتبع الطلبات</p>
-                    <button onclick="showCategory('orders')" class="text-green-600 hover:text-green-700 text-sm font-medium">
-                        عرض الدليل
-                    </button>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm p-6 help-card text-center">
-                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-chart-bar text-purple-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">التقارير</h3>
-                    <p class="text-gray-600 text-sm mb-4">إنشاء وتحليل التقارير</p>
-                    <button onclick="showCategory('reports')" class="text-purple-600 hover:text-purple-700 text-sm font-medium">
-                        عرض الدليل
-                    </button>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm p-6 help-card text-center">
-                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-cog text-orange-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">الإعدادات</h3>
-                    <p class="text-gray-600 text-sm mb-4">تخصيص إعدادات النظام</p>
-                    <button onclick="showCategory('settings')" class="text-orange-600 hover:text-orange-700 text-sm font-medium">
-                        عرض الدليل
+                    <a href="/profile.html" class="flex items-center space-x-3 space-x-reverse">
+                        <img src="https://placehold.co/40x40/6890e8/FFFFFF.png" alt="Profile" class="w-10 h-10 rounded-full">
+                        <div class="hidden md:block">
+                            <p class="text-sm font-medium text-gray-700">أحمد محمد</p>
+                            <p class="text-xs text-gray-500">مدير النظام</p>
+                        </div>
+                    </a>
+                    <button id="contactSupportBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-headset ml-2"></i>
+                        تواصل مع الدعم
                     </button>
                 </div>
             </div>
+        </header>
 
-            <!-- FAQ Section -->
-            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
-                <h3 class="text-xl font-semibold text-gray-800 mb-6">الأسئلة الشائعة</h3>
-                
-                <div class="space-y-4" id="faqContainer">
-                    <div class="faq-item border border-gray-200 rounded-lg">
-                        <button class="faq-question w-full px-6 py-4 text-right flex items-center justify-between hover:bg-gray-50 transition-colors">
-                            <span class="font-medium text-gray-800">كيف يمكنني إضافة منتج جديد؟</span>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
-                        </button>
-                        <div class="faq-content px-6 pb-4">
-                            <p class="text-gray-600">لإضافة منتج جديد، اتبع الخطوات التالية:</p>
-                            <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
-                                <li>اذهب إلى صفحة "إدارة المنتجات"</li>
-                                <li>اضغط على زر "إضافة منتج جديد"</li>
-                                <li>املأ جميع المعلومات المطلوبة</li>
-                                <li>اضغط على "إضافة المنتج"</li>
-                            </ol>
-                        </div>
-                    </div>
+        <div class="h-[77px] lg:hidden"></div>
 
-                    <div class="faq-item border border-gray-200 rounded-lg">
-                        <button class="faq-question w-full px-6 py-4 text-right flex items-center justify-between hover:bg-gray-50 transition-colors">
-                            <span class="font-medium text-gray-800">كيف يمكنني تتبع حالة الطلبات؟</span>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
-                        </button>
-                        <div class="faq-content px-6 pb-4">
-                            <p class="text-gray-600">يمكنك تتبع حالة الطلبات من خلال:</p>
-                            <ul class="list-disc list-inside mt-2 space-y-1 text-gray-600">
-                                <li>الذهاب إلى صفحة "إدارة الطلبات"</li>
-                                <li>استخدام الفلاتر للبحث عن طلب محدد</li>
-                                <li>النقر على الطلب لعرض تفاصيله</li>
-                                <li>تحديث حالة الطلب حسب التقدم</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="faq-item border border-gray-200 rounded-lg">
-                        <button class="faq-question w-full px-6 py-4 text-right flex items-center justify-between hover:bg-gray-50 transition-colors">
-                            <span class="font-medium text-gray-800">كيف يمكنني إنشاء تقرير مبيعات؟</span>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
-                        </button>
-                        <div class="faq-content px-6 pb-4">
-                            <p class="text-gray-600">لإنشاء تقرير مبيعات:</p>
-                            <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
-                                <li>اذهب إلى صفحة "التقارير"</li>
-                                <li>حدد نطاق التاريخ المطلوب</li>
-                                <li>اختر نوع التقرير "المبيعات"</li>
-                                <li>اضغط على "إنشاء التقرير"</li>
-                                <li>يمكنك تصدير التقرير أو طباعته</li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <div class="faq-item border border-gray-200 rounded-lg">
-                        <button class="faq-question w-full px-6 py-4 text-right flex items-center justify-between hover:bg-gray-50 transition-colors">
-                            <span class="font-medium text-gray-800">كيف يمكنني تغيير كلمة المرور؟</span>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
-                        </button>
-                        <div class="faq-content px-6 pb-4">
-                            <p class="text-gray-600">لتغيير كلمة المرور:</p>
-                            <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
-                                <li>اذهب إلى "الإعدادات"</li>
-                                <li>اختر قسم "الأمان"</li>
-                                <li>أدخل كلمة المرور الحالية</li>
-                                <li>أدخل كلمة المرور الجديدة</li>
-                                <li>اضغط على "تغيير كلمة المرور"</li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <div class="faq-item border border-gray-200 rounded-lg">
-                        <button class="faq-question w-full px-6 py-4 text-right flex items-center justify-between hover:bg-gray-50 transition-colors">
-                            <span class="font-medium text-gray-800">كيف يمكنني إضافة مستخدم جديد؟</span>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
-                        </button>
-                        <div class="faq-content px-6 pb-4">
-                            <p class="text-gray-600">لإضافة مستخدم جديد:</p>
-                            <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
-                                <li>اذهب إلى "إدارة المستخدمين"</li>
-                                <li>اضغط على "إضافة مستخدم جديد"</li>
-                                <li>املأ بيانات المستخدم</li>
-                                <li>حدد الصلاحيات المطلوبة</li>
-                                <li>اضغط على "إضافة المستخدم"</li>
-                            </ol>
+        <!-- Main Content -->
+        <main class="p-6">
+            <div class="max-w-6xl mx-auto">
+                <!-- Search Section -->
+                <div class="bg-white rounded-xl shadow-sm p-8 mb-8 text-center">
+                    <div class="max-w-2xl mx-auto">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-4">كيف يمكننا مساعدتك؟</h2>
+                        <p class="text-gray-600 mb-6">ابحث عن إجابات للأسئلة الشائعة أو تصفح الأدلة التعليمية</p>
+                        
+                        <div class="relative">
+                            <input type="text" id="helpSearch" placeholder="ابحث في المساعدة..." 
+                                   class="w-full px-6 py-4 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg">
+                            <button class="absolute inset-y-0 left-0 pl-4 text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-search text-xl"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Contact Support -->
-            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
-                <h3 class="text-xl font-semibold text-gray-800 mb-6">تواصل مع الدعم الفني</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="text-center">
+                <!-- Quick Help Categories -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-xl shadow-sm p-6 help-card text-center">
                         <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-phone text-blue-600 text-2xl"></i>
+                            <i class="fas fa-boxes text-blue-600 text-2xl"></i>
                         </div>
-                        <h4 class="font-semibold text-gray-800 mb-2">الهاتف</h4>
-                        <p class="text-gray-600">+966 50 123 4567</p>
-                        <p class="text-sm text-gray-500">الأحد - الخميس: 8 ص - 5 م</p>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-envelope text-green-600 text-2xl"></i>
-                        </div>
-                        <h4 class="font-semibold text-gray-800 mb-2">البريد الإلكتروني</h4>
-                        <p class="text-gray-600">support@autoparts.com</p>
-                        <p class="text-sm text-gray-500">الرد خلال 24 ساعة</p>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-comments text-purple-600 text-2xl"></i>
-                        </div>
-                        <h4 class="font-semibold text-gray-800 mb-2">الدردشة المباشرة</h4>
-                        <p class="text-gray-600">متاحة 24/7</p>
-                        <button class="text-sm text-purple-600 hover:text-purple-700 font-medium">
-                            بدء الدردشة
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">إدارة المنتجات</h3>
+                        <p class="text-gray-600 text-sm mb-4">تعلم كيفية إضافة وتعديل المنتجات</p>
+                        <button onclick="showCategory('products')" class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                            عرض الدليل
                         </button>
                     </div>
-                </div>
-            </div>
 
-            <!-- Video Tutorials -->
-            <div class="bg-white rounded-xl shadow-sm p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-6">فيديوهات تعليمية</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="bg-gray-100 rounded-lg p-4 text-center">
-                        <div class="w-full h-32 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-                            <i class="fas fa-play-circle text-4xl text-gray-400"></i>
+                    <div class="bg-white rounded-xl shadow-sm p-6 help-card text-center">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-shopping-cart text-green-600 text-2xl"></i>
                         </div>
-                        <h4 class="font-semibold text-gray-800 mb-2">البدء مع النظام</h4>
-                        <p class="text-sm text-gray-600 mb-3">دليل شامل للبدء في استخدام النظام</p>
-                        <button class="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                            مشاهدة الفيديو
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">إدارة الطلبات</h3>
+                        <p class="text-gray-600 text-sm mb-4">كيفية معالجة وتتبع الطلبات</p>
+                        <button onclick="showCategory('orders')" class="text-green-600 hover:text-green-700 text-sm font-medium">
+                            عرض الدليل
                         </button>
                     </div>
-                    
-                    <div class="bg-gray-100 rounded-lg p-4 text-center">
-                        <div class="w-full h-32 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-                            <i class="fas fa-play-circle text-4xl text-gray-400"></i>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6 help-card text-center">
+                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-chart-bar text-purple-600 text-2xl"></i>
                         </div>
-                        <h4 class="font-semibold text-gray-800 mb-2">إدارة المنتجات</h4>
-                        <p class="text-sm text-gray-600 mb-3">كيفية إضافة وتعديل المنتجات</p>
-                        <button class="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                            مشاهدة الفيديو
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">التقارير</h3>
+                        <p class="text-gray-600 text-sm mb-4">إنشاء وتحليل التقارير</p>
+                        <button onclick="showCategory('reports')" class="text-purple-600 hover:text-purple-700 text-sm font-medium">
+                            عرض الدليل
                         </button>
                     </div>
-                    
-                    <div class="bg-gray-100 rounded-lg p-4 text-center">
-                        <div class="w-full h-32 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-                            <i class="fas fa-play-circle text-4xl text-gray-400"></i>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6 help-card text-center">
+                        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-cog text-orange-600 text-2xl"></i>
                         </div>
-                        <h4 class="font-semibold text-gray-800 mb-2">إنشاء التقارير</h4>
-                        <p class="text-sm text-gray-600 mb-3">دليل إنشاء وتحليل التقارير</p>
-                        <button class="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                            مشاهدة الفيديو
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">الإعدادات</h3>
+                        <p class="text-gray-600 text-sm mb-4">تخصيص إعدادات النظام</p>
+                        <button onclick="showCategory('settings')" class="text-orange-600 hover:text-orange-700 text-sm font-medium">
+                            عرض الدليل
                         </button>
                     </div>
                 </div>
+
+                <!-- FAQ Section -->
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-6">الأسئلة الشائعة</h3>
+                    
+                    <div class="space-y-4" id="faqContainer">
+                        <div class="faq-item border border-gray-200 rounded-lg">
+                            <button class="faq-question w-full px-6 py-4 text-right flex items-center justify-between hover:bg-gray-50 transition-colors">
+                                <span class="font-medium text-gray-800">كيف يمكنني إضافة منتج جديد؟</span>
+                                <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                            </button>
+                            <div class="faq-content px-6 pb-4">
+                                <p class="text-gray-600">لإضافة منتج جديد، اتبع الخطوات التالية:</p>
+                                <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
+                                    <li>اذهب إلى صفحة "إدارة المنتجات"</li>
+                                    <li>اضغط على زر "إضافة منتج جديد"</li>
+                                    <li>املأ جميع المعلومات المطلوبة</li>
+                                    <li>اضغط على "إضافة المنتج"</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="faq-item border border-gray-200 rounded-lg">
+                            <button class="faq-question w-full px-6 py-4 text-right flex items-center justify-between hover:bg-gray-50 transition-colors">
+                                <span class="font-medium text-gray-800">كيف يمكنني تتبع حالة الطلبات؟</span>
+                                <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                            </button>
+                            <div class="faq-content px-6 pb-4">
+                                <p class="text-gray-600">يمكنك تتبع حالة الطلبات من خلال:</p>
+                                <ul class="list-disc list-inside mt-2 space-y-1 text-gray-600">
+                                    <li>الذهاب إلى صفحة "إدارة الطلبات"</li>
+                                    <li>استخدام الفلاتر للبحث عن طلب محدد</li>
+                                    <li>النقر على الطلب لعرض تفاصيله</li>
+                                    <li>تحديث حالة الطلب حسب التقدم</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="faq-item border border-gray-200 rounded-lg">
+                            <button class="faq-question w-full px-6 py-4 text-right flex items-center justify-between hover:bg-gray-50 transition-colors">
+                                <span class="font-medium text-gray-800">كيف يمكنني إنشاء تقرير مبيعات؟</span>
+                                <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                            </button>
+                            <div class="faq-content px-6 pb-4">
+                                <p class="text-gray-600">لإنشاء تقرير مبيعات:</p>
+                                <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
+                                    <li>اذهب إلى صفحة "التقارير"</li>
+                                    <li>حدد نطاق التاريخ المطلوب</li>
+                                    <li>اختر نوع التقرير "المبيعات"</li>
+                                    <li>اضغط على "إنشاء التقرير"</li>
+                                    <li>يمكنك تصدير التقرير أو طباعته</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="faq-item border border-gray-200 rounded-lg">
+                            <button class="faq-question w-full px-6 py-4 text-right flex items-center justify-between hover:bg-gray-50 transition-colors">
+                                <span class="font-medium text-gray-800">كيف يمكنني تغيير كلمة المرور؟</span>
+                                <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                            </button>
+                            <div class="faq-content px-6 pb-4">
+                                <p class="text-gray-600">لتغيير كلمة المرور:</p>
+                                <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
+                                    <li>اذهب إلى "الإعدادات"</li>
+                                    <li>اختر قسم "الأمان"</li>
+                                    <li>أدخل كلمة المرور الحالية</li>
+                                    <li>أدخل كلمة المرور الجديدة</li>
+                                    <li>اضغط على "تغيير كلمة المرور"</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Support -->
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-6">تواصل مع الدعم الفني</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-phone text-blue-600 text-2xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-2">الهاتف</h4>
+                            <p class="text-gray-600">+966 50 123 4567</p>
+                            <p class="text-sm text-gray-500">الأحد - الخميس: 8 ص - 5 م</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-envelope text-green-600 text-2xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-2">البريد الإلكتروني</h4>
+                            <p class="text-gray-600">support@autoparts.com</p>
+                            <p class="text-sm text-gray-500">الرد خلال 24 ساعة</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-comments text-purple-600 text-2xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-2">الدردشة المباشرة</h4>
+                            <p class="text-gray-600">متاحة 24/7</p>
+                            <button class="text-sm text-purple-600 hover:text-purple-700 font-medium">
+                                بدء الدردشة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Tutorials -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-6">فيديوهات تعليمية</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-gray-100 rounded-lg p-4 text-center">
+                            <div class="w-full h-32 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                                <i class="fas fa-play-circle text-4xl text-gray-400"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-2">البدء مع النظام</h4>
+                            <p class="text-sm text-gray-600 mb-3">دليل شامل للبدء في استخدام النظام</p>
+                            <button class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                                مشاهدة الفيديو
+                            </button>
+                        </div>
+                        
+                        <div class="bg-gray-100 rounded-lg p-4 text-center">
+                            <div class="w-full h-32 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                                <i class="fas fa-play-circle text-4xl text-gray-400"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-2">إدارة المنتجات</h4>
+                            <p class="text-sm text-gray-600 mb-3">كيفية إضافة وتعديل المنتجات</p>
+                            <button class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                                مشاهدة الفيديو
+                            </button>
+                        </div>
+                        
+                        <div class="bg-gray-100 rounded-lg p-4 text-center">
+                            <div class="w-full h-32 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                                <i class="fas fa-play-circle text-4xl text-gray-400"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mb-2">إنشاء التقارير</h4>
+                            <p class="text-sm text-gray-600 mb-3">دليل إنشاء وتحليل التقارير</p>
+                            <button class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                                مشاهدة الفيديو
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <!-- Notification Container -->
     <div id="notificationContainer" class="fixed top-4 left-4 z-50 space-y-2"></div>
 
     <script src="config.js"></script>
     <script src="help.js"></script>
+    <script src="script.js"></script>
+
 </body>
 </html> 
