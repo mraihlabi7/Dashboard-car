@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - نظام إدارة قطع غيار السيارات</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'cairo': ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        .login-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body class="login-bg min-h-screen flex items-center justify-center p-4">
+    <div class="absolute inset-0 overflow-hidden">
+        <!-- Animated background elements -->
+        <div class="absolute top-20 left-20 w-32 h-32 bg-white bg-opacity-10 rounded-full floating-animation"></div>
+        <div class="absolute top-40 right-40 w-24 h-24 bg-white bg-opacity-10 rounded-full floating-animation" style="animation-delay: -2s;"></div>
+        <div class="absolute bottom-20 left-40 w-20 h-20 bg-white bg-opacity-10 rounded-full floating-animation" style="animation-delay: -4s;"></div>
+        <div class="absolute bottom-40 right-20 w-28 h-28 bg-white bg-opacity-10 rounded-full floating-animation" style="animation-delay: -1s;"></div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-md">
+        <!-- Login Card -->
+        <div class="glass-effect rounded-2xl shadow-2xl p-8">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-cog text-white text-3xl"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-white mb-2">أوتو بارتس</h1>
+                <p class="text-white text-opacity-80">نظام إدارة قطع غيار السيارات</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-6">
+                <div>
+                    <label class="block text-white text-sm font-medium mb-2">البريد الإلكتروني</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope text-white text-opacity-60"></i>
+                        </div>
+                        <input type="email" id="email" name="email" required
+                               class="w-full pr-10 pl-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white placeholder-white placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 focus:border-transparent transition-all duration-300"
+                               placeholder="أدخل بريدك الإلكتروني">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-white text-sm font-medium mb-2">كلمة المرور</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-white text-opacity-60"></i>
+                        </div>
+                        <input type="password" id="password" name="password" required
+                               class="w-full pr-10 pl-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white placeholder-white placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 focus:border-transparent transition-all duration-300"
+                               placeholder="أدخل كلمة المرور">
+                        <button type="button" id="togglePassword" class="absolute inset-y-0 left-0 pl-3 flex items-center">
+                            <i class="fas fa-eye text-white text-opacity-60 hover:text-opacity-80 transition-colors"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center">
+                        <input type="checkbox" id="remember" name="remember"
+                               class="w-4 h-4 text-blue-600 bg-white bg-opacity-20 border-white border-opacity-30 rounded focus:ring-blue-500 focus:ring-2">
+                        <span class="mr-2 text-white text-sm">تذكرني</span>
+                    </label>
+                    <a href="#" class="text-white text-sm hover:text-opacity-80 transition-colors">نسيت كلمة المرور؟</a>
+                </div>
+
+                <button type="submit" id="loginBtn"
+                        class="w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50">
+                    <span id="loginBtnText">تسجيل الدخول</span>
+                    <i id="loginBtnIcon" class="fas fa-sign-in-alt mr-2"></i>
+                </button>
+            </form>
+
+            <!-- Divider -->
+            <div class="my-6 flex items-center">
+                <div class="flex-1 border-t border-white border-opacity-30"></div>
+                <span class="px-4 text-white text-opacity-60 text-sm">أو</span>
+                <div class="flex-1 border-t border-white border-opacity-30"></div>
+            </div>
+
+            <!-- Demo Accounts -->
+            <div class="space-y-3">
+                <p class="text-white text-opacity-80 text-sm text-center mb-4">حسابات تجريبية:</p>
+                
+                <button onclick="fillDemoAccount('admin')" class="w-full bg-white bg-opacity-10 hover:bg-opacity-20 text-white text-sm py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center">
+                    <i class="fas fa-user-shield mr-2"></i>
+                    مدير النظام
+                </button>
+                
+                <button onclick="fillDemoAccount('manager')" class="w-full bg-white bg-opacity-10 hover:bg-opacity-20 text-white text-sm py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center">
+                    <i class="fas fa-user-tie mr-2"></i>
+                    مدير محل
+                </button>
+                
+                <button onclick="fillDemoAccount('employee')" class="w-full bg-white bg-opacity-10 hover:bg-opacity-20 text-white text-sm py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center">
+                    <i class="fas fa-user mr-2"></i>
+                    موظف
+                </button>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 text-center">
+                <p class="text-white text-opacity-60 text-sm">
+                    ليس لديك حساب؟ 
+                    <a href="#" class="text-white hover:text-opacity-80 transition-colors font-medium">إنشاء حساب جديد</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Features Preview -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="glass-effect rounded-lg p-4 text-center">
+                <i class="fas fa-boxes text-white text-2xl mb-2"></i>
+                <p class="text-white text-sm">إدارة المنتجات</p>
+            </div>
+            <div class="glass-effect rounded-lg p-4 text-center">
+                <i class="fas fa-chart-line text-white text-2xl mb-2"></i>
+                <p class="text-white text-sm">تقارير متقدمة</p>
+            </div>
+            <div class="glass-effect rounded-lg p-4 text-center">
+                <i class="fas fa-mobile-alt text-white text-2xl mb-2"></i>
+                <p class="text-white text-sm">متجاوب بالكامل</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="fixed top-4 left-4 z-50 space-y-2"></div>
+
+    <script src="config.js"></script>
+    <script src="login.js"></script>
+</body>
+</html> 

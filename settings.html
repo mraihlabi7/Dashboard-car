@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعدادات - نظام إدارة قطع غيار السيارات</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'cairo': ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        .settings-card {
+            transition: all 0.3s ease;
+        }
+        .settings-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #3b82f6;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-cairo">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="flex items-center justify-between px-6 py-4">
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <a href="index.html" class="text-blue-600 hover:text-blue-700">
+                    <i class="fas fa-arrow-right text-xl"></i>
+                </a>
+                <h1 class="text-2xl font-bold text-gray-800">الإعدادات</h1>
+            </div>
+            
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <button id="saveSettingsBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-save ml-2"></i>
+                    حفظ الإعدادات
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="p-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Settings Navigation -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">الأقسام</h3>
+                    <nav class="space-y-2">
+                        <button class="settings-nav-item w-full text-right px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors active" data-section="general">
+                            <i class="fas fa-cog ml-3"></i>
+                            إعدادات عامة
+                        </button>
+                        <button class="settings-nav-item w-full text-right px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors" data-section="appearance">
+                            <i class="fas fa-palette ml-3"></i>
+                            المظهر
+                        </button>
+                        <button class="settings-nav-item w-full text-right px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors" data-section="notifications">
+                            <i class="fas fa-bell ml-3"></i>
+                            الإشعارات
+                        </button>
+                        <button class="settings-nav-item w-full text-right px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors" data-section="security">
+                            <i class="fas fa-shield-alt ml-3"></i>
+                            الأمان
+                        </button>
+                        <button class="settings-nav-item w-full text-right px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors" data-section="backup">
+                            <i class="fas fa-database ml-3"></i>
+                            النسخ الاحتياطي
+                        </button>
+                        <button class="settings-nav-item w-full text-right px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors" data-section="about">
+                            <i class="fas fa-info-circle ml-3"></i>
+                            حول النظام
+                        </button>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Settings Content -->
+            <div class="lg:col-span-2">
+                <!-- General Settings -->
+                <div id="general" class="settings-section">
+                    <div class="bg-white rounded-xl shadow-sm p-6 settings-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-6">الإعدادات العامة</h3>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">اسم الشركة</label>
+                                <input type="text" id="companyName" value="أوتو بارتس" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني للشركة</label>
+                                <input type="email" id="companyEmail" value="info@autoparts.com" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">رقم الهاتف</label>
+                                <input type="tel" id="companyPhone" value="+966501234567" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">العنوان</label>
+                                <textarea id="companyAddress" rows="3" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">شارع الملك فهد، الرياض، المملكة العربية السعودية</textarea>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">المنطقة الزمنية</label>
+                                <select id="timezone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="Asia/Riyadh" selected>الرياض (GMT+3)</option>
+                                    <option value="Asia/Dubai">دبي (GMT+4)</option>
+                                    <option value="Asia/Kuwait">الكويت (GMT+3)</option>
+                                    <option value="Asia/Bahrain">البحرين (GMT+3)</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">العملة</label>
+                                <select id="currency" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="SAR" selected>الريال السعودي (ر.س)</option>
+                                    <option value="AED">الدرهم الإماراتي (د.إ)</option>
+                                    <option value="KWD">الدينار الكويتي (د.ك)</option>
+                                    <option value="BHD">الدينار البحريني (د.ب)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Appearance Settings -->
+                <div id="appearance" class="settings-section hidden">
+                    <div class="bg-white rounded-xl shadow-sm p-6 settings-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-6">إعدادات المظهر</h3>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-4">المظهر</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                                        <input type="radio" name="theme" value="light" checked class="ml-3">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 bg-white border border-gray-300 rounded-lg ml-3"></div>
+                                            <span>فاتح</span>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                                        <input type="radio" name="theme" value="dark" class="ml-3">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 bg-gray-800 border border-gray-300 rounded-lg ml-3"></div>
+                                            <span>داكن</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-4">اللون الأساسي</label>
+                                <div class="grid grid-cols-5 gap-3">
+                                    <button class="color-option w-12 h-12 bg-blue-600 rounded-lg border-2 border-blue-600" data-color="blue"></button>
+                                    <button class="color-option w-12 h-12 bg-green-600 rounded-lg border-2 border-transparent" data-color="green"></button>
+                                    <button class="color-option w-12 h-12 bg-purple-600 rounded-lg border-2 border-transparent" data-color="purple"></button>
+                                    <button class="color-option w-12 h-12 bg-red-600 rounded-lg border-2 border-transparent" data-color="red"></button>
+                                    <button class="color-option w-12 h-12 bg-orange-600 rounded-lg border-2 border-transparent" data-color="orange"></button>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">عرض الرسوم المتحركة</label>
+                                    <p class="text-sm text-gray-500">تفعيل الحركات والانتقالات</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="animations" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">عرض الإشعارات</label>
+                                    <p class="text-sm text-gray-500">إظهار الإشعارات في الواجهة</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="showNotifications" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications Settings -->
+                <div id="notifications" class="settings-section hidden">
+                    <div class="bg-white rounded-xl shadow-sm p-6 settings-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-6">إعدادات الإشعارات</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">إشعارات البريد الإلكتروني</label>
+                                    <p class="text-sm text-gray-500">استلام إشعارات عبر البريد الإلكتروني</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="emailNotifications" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">إشعارات المخزون</label>
+                                    <p class="text-sm text-gray-500">تنبيهات عند انخفاض المخزون</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="stockNotifications" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">إشعارات الطلبات</label>
+                                    <p class="text-sm text-gray-500">تنبيهات عند استلام طلبات جديدة</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="orderNotifications" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">إشعارات النظام</label>
+                                    <p class="text-sm text-gray-500">تنبيهات تحديثات النظام</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="systemNotifications">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Settings -->
+                <div id="security" class="settings-section hidden">
+                    <div class="bg-white rounded-xl shadow-sm p-6 settings-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-6">إعدادات الأمان</h3>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">كلمة المرور الحالية</label>
+                                <input type="password" id="currentPassword" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">كلمة المرور الجديدة</label>
+                                <input type="password" id="newPassword" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">تأكيد كلمة المرور</label>
+                                <input type="password" id="confirmPassword" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">المصادقة الثنائية</label>
+                                    <p class="text-sm text-gray-500">تفعيل المصادقة الثنائية للحساب</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="twoFactorAuth">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">تسجيل الخروج التلقائي</label>
+                                    <p class="text-sm text-gray-500">تسجيل الخروج بعد فترة من عدم النشاط</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="autoLogout" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            
+                            <button id="changePasswordBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                <i class="fas fa-key ml-2"></i>
+                                تغيير كلمة المرور
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backup Settings -->
+                <div id="backup" class="settings-section hidden">
+                    <div class="bg-white rounded-xl shadow-sm p-6 settings-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-6">النسخ الاحتياطي</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700">النسخ الاحتياطي التلقائي</label>
+                                    <p class="text-sm text-gray-500">إنشاء نسخة احتياطية يومياً</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="autoBackup" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">عدد النسخ المحفوظة</label>
+                                <select id="backupCount" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="7">7 نسخ</option>
+                                    <option value="14" selected>14 نسخة</option>
+                                    <option value="30">30 نسخة</option>
+                                </select>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <button id="createBackupBtn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                    <i class="fas fa-download ml-2"></i>
+                                    إنشاء نسخة احتياطية
+                                </button>
+                                <button id="restoreBackupBtn" class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors">
+                                    <i class="fas fa-upload ml-2"></i>
+                                    استعادة نسخة احتياطية
+                                </button>
+                            </div>
+                            
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-medium text-gray-800 mb-2">آخر نسخة احتياطية</h4>
+                                <p class="text-sm text-gray-600">تم إنشاء آخر نسخة احتياطية في: 15 يناير 2024 - 14:30</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Settings -->
+                <div id="about" class="settings-section hidden">
+                    <div class="bg-white rounded-xl shadow-sm p-6 settings-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-6">حول النظام</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-cog text-blue-600 text-3xl"></i>
+                                </div>
+                                <h4 class="text-xl font-semibold text-gray-800">أوتو بارتس</h4>
+                                <p class="text-gray-600">نظام إدارة قطع غيار السيارات</p>
+                                <p class="text-sm text-gray-500 mt-2">الإصدار 1.0.0</p>
+                            </div>
+                            
+                            <div class="border-t pt-6">
+                                <h5 class="font-medium text-gray-800 mb-3">معلومات النظام</h5>
+                                <div class="space-y-2 text-sm text-gray-600">
+                                    <div class="flex justify-between">
+                                        <span>نوع النظام:</span>
+                                        <span>نظام إدارة أعمال</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>تاريخ الإصدار:</span>
+                                        <span>15 يناير 2024</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>المطور:</span>
+                                        <span>فريق التطوير</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>الترخيص:</span>
+                                        <span>MIT License</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="border-t pt-6">
+                                <h5 class="font-medium text-gray-800 mb-3">روابط مفيدة</h5>
+                                <div class="space-y-2">
+                                    <a href="#" class="block text-blue-600 hover:text-blue-700 text-sm">
+                                        <i class="fas fa-book ml-2"></i>
+                                        دليل المستخدم
+                                    </a>
+                                    <a href="#" class="block text-blue-600 hover:text-blue-700 text-sm">
+                                        <i class="fas fa-question-circle ml-2"></i>
+                                        الأسئلة الشائعة
+                                    </a>
+                                    <a href="#" class="block text-blue-600 hover:text-blue-700 text-sm">
+                                        <i class="fas fa-headset ml-2"></i>
+                                        الدعم الفني
+                                    </a>
+                                    <a href="#" class="block text-blue-600 hover:text-blue-700 text-sm">
+                                        <i class="fas fa-bug ml-2"></i>
+                                        الإبلاغ عن مشكلة
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="fixed top-4 left-4 z-50 space-y-2"></div>
+
+    <script src="config.js"></script>
+    <script src="settings.js"></script>
+</body>
+</html> 

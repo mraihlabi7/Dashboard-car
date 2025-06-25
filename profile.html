@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي - نظام إدارة قطع غيار السيارات</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'cairo': ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        .profile-card {
+            transition: all 0.3s ease;
+        }
+        .profile-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .avatar-upload {
+            position: relative;
+            display: inline-block;
+        }
+        .avatar-upload input[type=file] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .avatar-upload:hover .avatar-overlay {
+            opacity: 1;
+        }
+        .avatar-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-cairo">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="flex items-center justify-between px-6 py-4">
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <a href="index.html" class="text-blue-600 hover:text-blue-700">
+                    <i class="fas fa-arrow-right text-xl"></i>
+                </a>
+                <h1 class="text-2xl font-bold text-gray-800">الملف الشخصي</h1>
+            </div>
+            
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <button id="saveProfileBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-save ml-2"></i>
+                    حفظ التغييرات
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="p-6">
+        <div class="max-w-4xl mx-auto">
+            <!-- Profile Header -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6 profile-card">
+                <div class="flex items-center space-x-6 space-x-reverse">
+                    <div class="avatar-upload">
+                        <div class="w-24 h-24 rounded-full overflow-hidden bg-gray-200">
+                            <img id="profileAvatar" src="https://ui-avatars.com/api/?name=أحمد+محمد&size=96&background=3b82f6&color=fff" 
+                                 alt="الصورة الشخصية" class="w-full h-full object-cover">
+                        </div>
+                        <div class="avatar-overlay">
+                            <i class="fas fa-camera text-white text-xl"></i>
+                        </div>
+                        <input type="file" id="avatarInput" accept="image/*">
+                    </div>
+                    
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">أحمد محمد</h2>
+                        <p class="text-gray-600 mb-1">مدير النظام</p>
+                        <p class="text-gray-500 text-sm">ahmed@autoparts.com</p>
+                        <div class="flex items-center mt-3 space-x-4 space-x-reverse">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                <i class="fas fa-circle ml-1 text-xs"></i>
+                                متصل الآن
+                            </span>
+                            <span class="text-sm text-gray-500">آخر تسجيل دخول: اليوم 14:30</span>
+                        </div>
+                    </div>
+                    
+                    <div class="text-left">
+                        <button id="editProfileBtn" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+                            <i class="fas fa-edit ml-2"></i>
+                            تعديل
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Personal Information -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-xl shadow-sm p-6 profile-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-6">المعلومات الشخصية</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">الاسم الأول</label>
+                                <input type="text" id="firstName" value="أحمد" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">اسم العائلة</label>
+                                <input type="text" id="lastName" value="محمد" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني</label>
+                                <input type="email" id="email" value="ahmed@autoparts.com" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">رقم الهاتف</label>
+                                <input type="tel" id="phone" value="+966501234567" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">تاريخ الميلاد</label>
+                                <input type="date" id="birthDate" value="1990-01-15" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">الجنس</label>
+                                <select id="gender" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="male" selected>ذكر</option>
+                                    <option value="female">أنثى</option>
+                                </select>
+                            </div>
+                            
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">العنوان</label>
+                                <textarea id="address" rows="3" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">شارع الملك فهد، الرياض، المملكة العربية السعودية</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Work Information -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 profile-card mt-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-6">معلومات العمل</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">المنصب الوظيفي</label>
+                                <input type="text" id="jobTitle" value="مدير النظام" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">القسم</label>
+                                <input type="text" id="department" value="إدارة النظام" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">تاريخ التعيين</label>
+                                <input type="date" id="hireDate" value="2020-03-01" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">الراتب</label>
+                                <input type="text" id="salary" value="15,000 ر.س" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">المدير المباشر</label>
+                                <input type="text" id="manager" value="محمد أحمد" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">حالة التوظيف</label>
+                                <select id="employmentStatus" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="active" selected>نشط</option>
+                                    <option value="inactive">غير نشط</option>
+                                    <option value="suspended">معلق</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <!-- Quick Stats -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 profile-card mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">إحصائيات سريعة</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fas fa-clock text-blue-600 ml-3"></i>
+                                    <span class="text-sm font-medium text-gray-700">ساعات العمل</span>
+                                </div>
+                                <span class="text-lg font-bold text-blue-600">42</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fas fa-tasks text-green-600 ml-3"></i>
+                                    <span class="text-sm font-medium text-gray-700">المهام المكتملة</span>
+                                </div>
+                                <span class="text-lg font-bold text-green-600">156</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-purple-600 ml-3"></i>
+                                    <span class="text-sm font-medium text-gray-700">التقييم</span>
+                                </div>
+                                <span class="text-lg font-bold text-purple-600">4.8</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fas fa-calendar text-orange-600 ml-3"></i>
+                                    <span class="text-sm font-medium text-gray-700">أيام الإجازة</span>
+                                </div>
+                                <span class="text-lg font-bold text-orange-600">12</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 profile-card mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">النشاط الأخير</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3 space-x-reverse">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                                <div>
+                                    <p class="text-sm text-gray-800">تم تحديث ملف المنتج</p>
+                                    <p class="text-xs text-gray-500">منذ 5 دقائق</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3 space-x-reverse">
+                                <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                                <div>
+                                    <p class="text-sm text-gray-800">تم إنشاء تقرير جديد</p>
+                                    <p class="text-xs text-gray-500">منذ ساعة</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3 space-x-reverse">
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
+                                <div>
+                                    <p class="text-sm text-gray-800">تم إضافة مستخدم جديد</p>
+                                    <p class="text-xs text-gray-500">منذ 3 ساعات</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3 space-x-reverse">
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
+                                <div>
+                                    <p class="text-sm text-gray-800">تم تحديث الإعدادات</p>
+                                    <p class="text-xs text-gray-500">منذ يوم</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 profile-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">المهارات</h3>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>إدارة النظام</span>
+                                    <span>95%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-600 h-2 rounded-full" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>إدارة المنتجات</span>
+                                    <span>88%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-green-600 h-2 rounded-full" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>التقارير</span>
+                                    <span>92%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-purple-600 h-2 rounded-full" style="width: 92%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>إدارة المستخدمين</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-orange-600 h-2 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="fixed top-4 left-4 z-50 space-y-2"></div>
+
+    <script src="config.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html> 
