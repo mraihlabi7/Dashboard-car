@@ -76,6 +76,10 @@ let products = [
 
 // DOM Elements
 const productsGrid = document.getElementById('productsGrid');
+const productsTable = document.getElementById('productsTable');
+const productsTableBody = document.getElementById('productsTableBody');
+const gridViewBtn = document.getElementById('gridViewBtn');
+const tableViewBtn = document.getElementById('tableViewBtn');
 const addProductBtn = document.getElementById('addProductBtn');
 const addProductModal = document.getElementById('addProductModal');
 const closeModal = document.getElementById('closeModal');
@@ -103,6 +107,10 @@ function closeModalFunc() {
 addProductBtn.addEventListener('click', openModal);
 closeModal.addEventListener('click', closeModalFunc);
 cancelBtn.addEventListener('click', closeModalFunc);
+
+// View toggle event listeners
+gridViewBtn.addEventListener('click', switchToGridView);
+tableViewBtn.addEventListener('click', switchToTableView);
 
 // Close modal when clicking outside
 addProductModal.addEventListener('click', function(e) {
@@ -187,9 +195,96 @@ function createProductCard(product) {
     `;
 }
 
+// Generate Product Table Row HTML
+function createProductTableRow(product) {
+    const stockStatus = {
+        'in-stock': { class: 'bg-green-100 text-green-800', text: 'متوفر' },
+        'low-stock': { class: 'bg-yellow-100 text-yellow-800', text: 'مخزون منخفض' },
+        'out-of-stock': { class: 'bg-red-100 text-red-800', text: 'نفذ المخزون' }
+    };
+
+    const carTypeNames = {
+        'toyota': 'تويوتا',
+        'honda': 'هوندا',
+        'nissan': 'نيسان',
+        'bmw': 'بي إم دبليو'
+    };
+
+    const partTypeNames = {
+        'engine': 'محرك',
+        'brakes': 'فرامل',
+        'electrical': 'كهرباء',
+        'filters': 'فلاتر'
+    };
+
+    return `
+        <tr class="table-row">
+            <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 h-10 w-10">
+                        <img class="h-10 w-10 rounded-lg" src="${product.image}" alt="${product.name}">
+                    </div>
+                    <div class="mr-4">
+                        <div class="text-sm font-medium text-gray-900">${product.name}</div>
+                        <div class="text-sm text-gray-500">${product.description}</div>
+                    </div>
+                </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${product.code}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${carTypeNames[product.carType]}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${partTypeNames[product.partType]}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">${product.price} ر.س</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${product.stock} وحدة</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full ${stockStatus[product.status].class}">
+                    ${stockStatus[product.status].text}
+                </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <div class="flex items-center space-x-2 space-x-reverse">
+                    <button onclick="editProduct(${product.id})" class="text-blue-600 hover:text-blue-900">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button onclick="deleteProduct(${product.id})" class="text-red-600 hover:text-red-900">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button onclick="addToCart(${product.id})" class="text-green-600 hover:text-green-900">
+                        <i class="fas fa-cart-plus"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    `;
+}
+
+// View Toggle Functions
+function switchToGridView() {
+    productsGrid.classList.remove('hidden');
+    productsTable.classList.add('hidden');
+    gridViewBtn.classList.add('active');
+    tableViewBtn.classList.remove('active');
+    localStorage.setItem('productsView', 'grid');
+    renderProducts(); // Re-render products in grid view
+}
+
+function switchToTableView() {
+    productsGrid.classList.add('hidden');
+    productsTable.classList.remove('hidden');
+    tableViewBtn.classList.add('active');
+    gridViewBtn.classList.remove('active');
+    localStorage.setItem('productsView', 'table');
+    renderProducts(); // Re-render products in table view
+}
+
 // Render Products
 function renderProducts(productsToRender = products) {
-    productsGrid.innerHTML = productsToRender.map(product => createProductCard(product)).join('');
+    const currentView = localStorage.getItem('productsView') || 'grid';
+    
+    if (currentView === 'grid') {
+        productsGrid.innerHTML = productsToRender.map(product => createProductCard(product)).join('');
+    } else {
+        productsTableBody.innerHTML = productsToRender.map(product => createProductTableRow(product)).join('');
+    }
 }
 
 // Filter Products
@@ -367,6 +462,14 @@ loadMoreBtn.addEventListener('click', function() {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize view based on localStorage
+    const savedView = localStorage.getItem('productsView') || 'grid';
+    if (savedView === 'table') {
+        switchToTableView();
+    } else {
+        switchToGridView();
+    }
+    
     renderProducts();
     showNotification('مرحباً بك في صفحة إدارة المنتجات!', 'info');
 });

@@ -36,6 +36,29 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
+
+        .view-toggle-btn {
+            color: #6b7280;
+            transition: all 0.3s ease;
+        }
+
+        .view-toggle-btn:hover {
+            color: #3b82f6;
+            background-color: #eff6ff;
+        }
+
+        .view-toggle-btn.active {
+            color: #3b82f6;
+            background-color: #eff6ff;
+        }
+
+        .table-row {
+            transition: all 0.3s ease;
+        }
+
+        .table-row:hover {
+            background-color: #f9fafb;
+        }
     </style>
 </head>
 
@@ -102,7 +125,7 @@
         </nav>
     </div>
 
-    <div class="lg:mr-64"> 
+    <div class="lg:mr-64">
         <!-- Top Navigation -->
         <header class="bg-white shadow-sm border-b fixed w-full lg:relative">
             <div class="flex items-center justify-between px-6 py-4">
@@ -110,7 +133,7 @@
                     <button id="openSidebar" class="lg:hidden text-gray-500 hover:text-gray-700">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <h2 class="text-2xl font-bold text-gray-800">لوحة التحكم</h2>
+                    <h2 class="text-2xl font-bold text-gray-800">ادارة المنتجات</h2>
                 </div>
 
                 <div class="flex items-center space-x-4 space-x-reverse">
@@ -122,7 +145,8 @@
                         </button>
                     </div>
                     <a href="/profile.html" class="flex items-center space-x-3 space-x-reverse">
-                        <img src="https://placehold.co/40x40/6890e8/FFFFFF.png" alt="Profile" class="w-10 h-10 rounded-full">
+                        <img src="https://placehold.co/40x40/6890e8/FFFFFF.png" alt="Profile"
+                            class="w-10 h-10 rounded-full">
                         <div class="hidden md:block">
                             <p class="text-sm font-medium text-gray-700">أحمد محمد</p>
                             <p class="text-xs text-gray-500">مدير النظام</p>
@@ -135,12 +159,26 @@
         <div class="h-[77px] lg:hidden"></div>
 
         <!-- Add Product Button -->
-        <div class="flex justify-end pt-16 px-4">
+        <div class="flex justify-between items-center pt-16 px-4">
             <button id="addProductBtn"
                 class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                 <i class="fas fa-plus ml-2"></i>
                 إضافة منتج جديد
             </button>
+
+            <!-- View Toggle Buttons -->
+            <div class="flex items-center space-x-2 space-x-reverse bg-white rounded-lg p-1 shadow-sm">
+                <button id="gridViewBtn" class="view-toggle-btn active px-3 py-2 rounded-md transition-colors"
+                    data-view="grid">
+                    <i class="fas fa-th-large text-lg"></i>
+                </button>
+                <button id="tableViewBtn" class="view-toggle-btn px-3 py-2 rounded-md transition-colors"
+                    data-view="table">
+                    <i class="fas fa-table text-lg"></i>
+                </button>
+            </div>
+
+
         </div>
 
         <!-- Main Content -->
@@ -188,9 +226,50 @@
                 </div>
             </div>
 
-            <!-- Products Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="productsGrid">
+            <!-- Products Grid View -->
+            <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 <!-- Product cards will be generated here -->
+            </div>
+
+            <!-- Products Table View -->
+            <div id="productsTable" class="hidden">
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th
+                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        المنتج</th>
+                                    <th
+                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        الكود</th>
+                                    <th
+                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        نوع السيارة</th>
+                                    <th
+                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        نوع القطعة</th>
+                                    <th
+                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        السعر</th>
+                                    <th
+                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        المخزون</th>
+                                    <th
+                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        الحالة</th>
+                                    <th
+                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody" class="bg-white divide-y divide-gray-200">
+                                <!-- Table rows will be generated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
             <!-- Load More Button -->
