@@ -89,7 +89,7 @@
                     <span>الموردون</span>
                 </a>
                 <a href="reports.html"
-                    class="nav-item flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors active">
+                    class="nav-item  bg-blue-50 text-blue-600 flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors active">
                     <i class="fas fa-chart-bar ml-3"></i>
                     <span>التقارير</span>
                 </a>
@@ -127,14 +127,7 @@
                             <p class="text-xs text-gray-500">مدير النظام</p>
                         </div>
                     </a>
-                    <button id="exportReportBtn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
-                        <i class="fas fa-download ml-2"></i>
-                        تصدير التقرير
-                    </button>
-                    <button id="printReportBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                        <i class="fas fa-print ml-2"></i>
-                        طباعة
-                    </button>
+
                 </div>
             </div>
         </header>
@@ -143,6 +136,16 @@
 
         <!-- Main Content -->
         <main class="p-6">
+            <div class="flex items-center justify-end mb-4 gap-2">
+                <button id="exportReportBtn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                    <i class="fas fa-download ml-2"></i>
+                    تصدير التقرير
+                </button>
+                <button id="printReportBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-print ml-2"></i>
+                    طباعة
+                </button>
+            </div>
             <!-- Date Range Filter -->
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
                 <div class="flex items-center justify-between mb-4">
